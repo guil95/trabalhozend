@@ -12,10 +12,24 @@
  */
 
 return [
+    'cache' => [
+        'adapter' => [
+                'name' => 'apc',
+                'options' => ['ttl' => 3600],
+            ],
+        'plugins' => [
+                'exception_handler' => ['throw_exceptions' => false],
+                'serializer',
+            ],
+    ],
     'service_manager' => [
         'factories' => [
             Application\Model\BeerTableGateway::class =>  Application\Factory\BeerTableGateway::class,
             Application\Factory\DbAdapter::class => Application\Factory\DbAdapter::class,
+            Application\Factory\Db\Adapter\Adapter::class => Application\Factory\Db\Adapter\Adapter::class,
+            Application\Model\Beer\TableGateway::class => Application\Factory\Model\Beer\TableGateway::class,
+            Application\Service\Auth::class => Application\Factory\Service\Auth::class,
+            'Application\Service\Cache' => Application\Factory\Service\Cache::class,
         ],
         'alias' => [
             'DB' => Application\Factory\DbAdapter::class,
